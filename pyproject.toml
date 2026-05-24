@@ -1,0 +1,15 @@
+[project]
+name = "password-cracker"
+version = "0.1.0"
+description = "A small timing-attack password cracker demo with user management and CLI support."
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "numpy>=2.4.6",
+]
+
+[tool.uv]
+package = true
+
+[project.scripts]
+password-cracker = "password_cracker.cli:main"

